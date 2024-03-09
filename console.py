@@ -3,7 +3,7 @@
 
 import cmd
 from models.base_model import BaseModel
-from models import storage
+from models.__init__ import storage
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -73,22 +73,21 @@ def do_destroy(self, arg):
     except NameError:
         print("** class do not exist **")
 
-def do_all(self, arg):
-    '''print all string representations of all instances based or not on the class name'''
-    objs = []
-    args = args.split()
-    if not args or args[0] == "":
-        for obj in storage.all()values():
-            objs.append(str(obj))
-    else:
-        try:
-            class_name = args[0]
-            for key, obj in storage.all().items():
-                if class_name == obj.__class__.__name__:
-                    objs.append(str(obj))
-        except NameError:
-            print("** class do not exist **")
-    print(objs)
+def do_all(self, args):
+        """ Shows all objects, or all objects of a class"""
+        print_list = []
+
+        if args:
+            args = args.split(' ')[0]  # remove possible trailing args
+            if args not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
+                print_list.append(str(v))
+        else:
+            for k, v in storage.all().items():
+                print_list.append(str(v))
+        print(print_list)
 
 def do_update(self, arg):
     '''updates an instance bsed on the class name and id by adding or updating an attribute'''
