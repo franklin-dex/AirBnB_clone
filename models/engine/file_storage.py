@@ -33,18 +33,12 @@ def save(self):
             json.dump(our_dict, f)
 
 def reload(self):
-        """Deserializes the JSON file to __objects."""
-        if os.path.isfile(self.__file_path):
-            with open(self.__file_path, 'r') as file:
-                data = json.load(file)
-                for key, value in data.items():
-                    class_name, obj_id = key.split('.')
-                    obj_dict = value
-                    module = __import__("models." + class_name, fromlist=[class_name])
-                    class_ = getattr(module, class_name)
-                    obj = class_(**obj_dict)
-                    self.__objects[key] = obj
-
-
-
-
+        """serialize the file path to JSON file path
+        """
+        try:
+            with open(self.__file_path, 'r', encoding="UTF-8") as f:
+                for key, value in (json.load(f)).items():
+                    value = eval(value["__class__"])(**value)
+                    self.__objects[key] = value
+        except FileNotFoundError:
+            pass

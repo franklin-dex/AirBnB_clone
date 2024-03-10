@@ -2,11 +2,11 @@
 """ Class BaseModel """
 import uuid
 from datetime import datetime
-from models.engine.file_storage import storage
+import models
 
 
 class BaseModel:
-     """ construct """
+    """ construct """
     def __init__(self, *args, **kwargs):
         if kwargs:
             for key, value in kwargs.items():
@@ -22,16 +22,16 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.createdat = datetime.now()
             self.updatedat = datetime.now()
-            models.storage.new(self)
+            storage.new(self)
 
     def __str__(self):
-         """ String """
+        """ String """
         return "[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__)
     
     def save(self):
         """save function"""
         self.updatedat = datetime.now()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
         """ Return a dictonary """
@@ -40,3 +40,4 @@ class BaseModel:
         our_dict['createdat'] = self.createdat.isoformat()
         our_dict['updatedat'] = self.updatedat.isoformat()
         return our_dict
+
