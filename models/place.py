@@ -2,6 +2,7 @@
 """This is the place class"""
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """This is the class for Place
     Attributes:
