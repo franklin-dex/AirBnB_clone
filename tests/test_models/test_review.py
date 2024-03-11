@@ -1,6 +1,7 @@
 import unittest
 from models.review import Review
 
+
 class TestReview(unittest.TestCase):
 
     def setUp(self):
@@ -25,5 +26,6 @@ class TestReview(unittest.TestCase):
 
     # Add more test cases as needed...
 
+
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(i)

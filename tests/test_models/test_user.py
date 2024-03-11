@@ -1,6 +1,7 @@
 import unittest
 from models.user import User
 
+
 class TestUser(unittest.TestCase):
     """Test cases for the User class"""
 
@@ -29,6 +30,6 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(self.user.first_name, str)
         self.assertIsInstance(self.user.last_name, str)
 
+
 if __name__ == '__main__':
     unittest.main()
-
