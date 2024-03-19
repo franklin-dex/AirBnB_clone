@@ -1,1 +1,1 @@
-This is the readme for this project
+This is the readme for the Web static project
